@@ -1,6 +1,9 @@
 var builder = WebApplication.CreateBuilder(args);
+
+// Add dependency injection services here
+
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+// Configure the HTTP request pipeline here
 
 app.Run();
