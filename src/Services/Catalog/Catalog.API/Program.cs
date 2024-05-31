@@ -8,5 +8,6 @@ builder.Services.AddCarter();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline here
+app.MapCarter();
 
 app.Run();
