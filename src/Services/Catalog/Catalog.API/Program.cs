@@ -1,10 +1,10 @@
 using Carter;
 using Catalog.API.Products.CreateProduct;
+using Catalog.API.Products.GetProductByCategory;
 using Catalog.API.Products.GetProductById;
 using Catalog.API.Products.GetProducts;
+using Catalog.API.Products.UpdateProduct;
 using Marten;
-using Microsoft.Extensions.Options;
-using Weasel.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +14,8 @@ builder.Services.AddCarter(null, config =>
     config.WithModule<CreateProductEndpoint>();
     config.WithModule<GetProductsEndpoint>();
     config.WithModule<GetProductByIdEndpoint>();
+    config.WithModule<GetProductByCategoryEndpoint>();
+    config.WithModule<UpdateProductEndpoint>();
 });
 builder.Services.AddMediatR(config =>
 {
