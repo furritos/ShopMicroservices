@@ -1,5 +1,6 @@
 using Carter;
 using Catalog.API.Products.CreateProduct;
+using Catalog.API.Products.GetProducts;
 using Marten;
 using Microsoft.Extensions.Options;
 using Weasel.Core;
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCarter(null, config =>
 {
     config.WithModule<CreateProductEndpoint>();
+    config.WithModule<GetProductsEndpoint>();
 });
 builder.Services.AddMediatR(config =>
 {
