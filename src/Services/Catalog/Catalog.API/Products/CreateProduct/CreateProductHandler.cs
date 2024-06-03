@@ -15,15 +15,14 @@ namespace Catalog.API.Products.CreateProduct
      * 
     */
 
-    public record CreatedProductCommand(string Name, List<string> Category, string Description, string ImageFile, decimal Price)
+    public record CreateProductCommand(string Name, List<string> Category, string Description, string ImageFile, decimal Price)
         : ICommand<CreateProductResult>;
-
     public record CreateProductResult(Guid Id);
 
     internal class CreateProductCommandHandler(IDocumentSession session)
-        : ICommandHandler<CreatedProductCommand, CreateProductResult>
+        : ICommandHandler<CreateProductCommand, CreateProductResult>
     {
-        public async Task<CreateProductResult> Handle(CreatedProductCommand command, CancellationToken cancellationToken)
+        public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
             /*
              * Perform business logic to create a product by first creating Product entity from command object
