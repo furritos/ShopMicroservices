@@ -1,6 +1,8 @@
 using Carter;
 using Catalog.API.Products.CreateProduct;
 using Marten;
+using Microsoft.Extensions.Options;
+using Weasel.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +17,7 @@ builder.Services.AddMediatR(config =>
 });
 builder.Services.AddMarten(opts =>
 {
-    opts.Connection(builder.Configuration.GetConnectionString("Database"));
+    opts.Connection(builder.Configuration.GetConnectionString("Database")!);
 }).UseLightweightSessions();
 // --------------------------------------
 

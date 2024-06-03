@@ -1,9 +1,10 @@
-POST http://localhost:5000/products HTTP/1.1
+POST https://localhost:5050/products HTTP/1.1
 content-type: application/json
 
 {
-    "Name": "Product A",
-    "Description": "Product A Description",
-    "ImageFile": "http://imgur.com/product_a",
-    "Price": 9.99
+    "Name": "Product B",
+    "Category": ["head", "shoulders"],
+    "Description": "Product B Description",
+    "ImageFile": "http://imgur.com/product_b",
+    "Price": 9.11
 }
