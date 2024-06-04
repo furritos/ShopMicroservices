@@ -1,5 +1,6 @@
 using Carter;
 using Catalog.API.Products.CreateProduct;
+using Catalog.API.Products.DeleteProduct;
 using Catalog.API.Products.GetProductByCategory;
 using Catalog.API.Products.GetProductById;
 using Catalog.API.Products.GetProducts;
@@ -16,6 +17,7 @@ builder.Services.AddCarter(null, config =>
     config.WithModule<GetProductByIdEndpoint>();
     config.WithModule<GetProductByCategoryEndpoint>();
     config.WithModule<UpdateProductEndpoint>();
+    config.WithModule<DeleteProductEndpoint>();
 });
 builder.Services.AddMediatR(config =>
 {
