@@ -22,7 +22,7 @@ namespace Catalog.API.Products.UpdateProduct
             }
 
             product.Name = command.Name is null ? product.Name : command.Name;
-            product.Category = command.Category is null ? product.Category : command.Category;
+            product.Category = command.Category.IsEmpty() ? product.Category : command.Category;
             product.Description = command.Description is null ? product.Description : command.Description;
             product.ImageFile = command.ImageFile is null ? product.ImageFile : command.ImageFile;
             product.Price = command.Price is 0 ? product.Price : command.Price;
