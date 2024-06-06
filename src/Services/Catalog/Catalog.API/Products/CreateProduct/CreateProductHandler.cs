@@ -2,6 +2,7 @@
 using Catalog.API.Models;
 using FluentValidation;
 using Marten;
+using static BuildingBlocks.Behaviors.ValidationBehaviorConstants;
 
 namespace Catalog.API.Products.CreateProduct
 {
@@ -24,10 +25,11 @@ namespace Catalog.API.Products.CreateProduct
     {
         public CreateProductCommandValidator()
         {
-            RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required");
-            RuleFor(x => x.Category).NotEmpty().WithMessage("Category is required");
-            RuleFor(x => x.ImageFile).NotEmpty().WithMessage("ImageFile is required");
-            RuleFor(x => x.Price).GreaterThan(0).WithMessage("Price must be greater than 0");
+            RuleFor(x => x.Name).NotEmpty().WithMessage(FIELD_REQUIRED)
+                .Length(2, 150).WithMessage(FieldLength(2,150));
+            RuleFor(x => x.Category).NotEmpty().WithMessage(FIELD_REQUIRED);
+            RuleFor(x => x.ImageFile).NotEmpty().WithMessage(FIELD_REQUIRED);
+            RuleFor(x => x.Price).GreaterThan(0).WithMessage(FIELD_GREATER_ZERO);
         }
     }
 
