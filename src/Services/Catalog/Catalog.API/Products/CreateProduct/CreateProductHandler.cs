@@ -21,19 +21,19 @@ namespace Catalog.API.Products.CreateProduct
         : ICommand<CreateProductResult>;
     public record CreateProductResult(Guid Id);
 
-    public class CreateProductCommandValidator:AbstractValidator<CreateProductCommand>
+    public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
     {
         public CreateProductCommandValidator()
         {
             RuleFor(x => x.Name).NotEmpty().WithMessage(FIELD_REQUIRED)
-                .Length(2, 150).WithMessage(FieldLength(2,150));
+                .Length(2, 150).WithMessage(FieldLength(2, 150));
             RuleFor(x => x.Category).NotEmpty().WithMessage(FIELD_REQUIRED);
             RuleFor(x => x.ImageFile).NotEmpty().WithMessage(FIELD_REQUIRED);
             RuleFor(x => x.Price).GreaterThan(0).WithMessage(FIELD_GREATER_ZERO);
         }
     }
 
-    internal class CreateProductCommandHandler(IDocumentSession session, ILogger<CreateProductCommandHandler> logger)
+    internal class CreateProductCommandHandler(IDocumentSession session)
         : ICommandHandler<CreateProductCommand, CreateProductResult>
     {
         public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
@@ -41,7 +41,6 @@ namespace Catalog.API.Products.CreateProduct
             /*
              * Perform business logic to create a product by first creating Product entity from command object
              */
-            logger.LogInformation("CreateProductCommandHandler.Handle called with {@Command}", command);
             var product = new Product
             {
                 Name = command.Name,
