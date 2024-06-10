@@ -9,7 +9,9 @@ using Catalog.API.Products.GetProducts;
 using Catalog.API.Products.UpdateProduct;
 using Catalog.Data;
 using FluentValidation;
+using HealthChecks.UI.Client;
 using Marten;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,9 +45,10 @@ builder.Services.AddValidatorsFromAssembly(assembly);
 /*
  * Marten - Database repository; JSON documents in PostgreSQL
  */
+var dbConnection = builder.Configuration.GetConnectionString("Database")!;
 builder.Services.AddMarten(opts =>
 {
-    opts.Connection(builder.Configuration.GetConnectionString("Database")!);
+    opts.Connection(dbConnection);
 }).UseLightweightSessions();
 
 if (builder.Environment.IsDevelopment())
@@ -55,7 +58,7 @@ if (builder.Environment.IsDevelopment())
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
-builder.Services.AddHealthChecks();
+builder.Services.AddHealthChecks().AddNpgSql(dbConnection);
 
 // --------------------------------------
 
@@ -69,7 +72,10 @@ app.UseExceptionHandler(opts =>
 
 });
 
-app.UseHealthChecks("/health");
+app.UseHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
 // --------------------------------------
 app.Run();
