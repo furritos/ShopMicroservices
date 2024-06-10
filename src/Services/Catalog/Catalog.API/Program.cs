@@ -55,6 +55,8 @@ if (builder.Environment.IsDevelopment())
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
+builder.Services.AddHealthChecks();
+
 // --------------------------------------
 
 var app = builder.Build();
@@ -66,6 +68,8 @@ app.UseExceptionHandler(opts =>
 {
 
 });
+
+app.UseHealthChecks("/health");
 
 // --------------------------------------
 app.Run();
