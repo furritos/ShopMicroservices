@@ -34,7 +34,7 @@ public class CatalogInitialData : IInitialData
                 Description = string.Format("Sample description text of Product {0}", i),
                 ImageFile = string.Format("product-{0}.jpg", i),
                 Price = (decimal)(1.99 + i),
-                Category = categories.GetRange(0, rnd.Next(categories.Count))
+                Category = categories.GetRange(0, rnd.Next(categories.Count) + 1)
             });
         }
         return products;
