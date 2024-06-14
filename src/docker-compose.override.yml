@@ -15,6 +15,20 @@ services:
       - postgres
     restart: always
 
+  basketdb:
+    container_name: basketdb
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: BasketDb
+    volumes:
+      - postgres_basket:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+    networks:
+      - postgres
+    restart: always
+
   pgadmin:
     container_name: pgadmin
     environment:
