@@ -1,5 +1,6 @@
 using Basket.API.Basket.DeleteBasket;
 using Basket.API.Basket.GetBasket;
+using Basket.API.Models;
 using BuildingBlocks.Behaviors;
 using Carter;
 using FluentValidation;
@@ -29,6 +30,23 @@ builder.Services.AddMediatR(config =>
     config.AddOpenBehavior(typeof(LoggingBehavior<,>));
 });
 builder.Services.AddValidatorsFromAssembly(assembly);
+
+/*
+ * Marten - Database repository; JSON documents in PostgreSQL
+ */
+var dbConnection = builder.Configuration.GetConnectionString("Database")!;
+builder.Services.AddMarten(opts =>
+{
+    opts.Connection(dbConnection);
+    /*
+     * Since there's no "standard" GUID/ID field, Marten provides two ways to provide one:
+     * https://martendb.io/documents/identity.html
+     */
+    opts.Schema.For<ShoppingCart>().Identity(x => x.UserName);
+    
+}).UseLightweightSessions();
+
+// --------------------------------------------------------------
 
 var app = builder.Build();
 
