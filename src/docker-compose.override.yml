@@ -3,6 +3,7 @@ version: '3.4'
 services:
   catalogdb:
     container_name: catalogdb
+    hostname: catalogdb
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -11,12 +12,13 @@ services:
       - postgres_catalog:/var/lib/postgresql/data
     ports:
       - 5432:5432
-    networks:
-      - postgres
     restart: always
+    networks:
+      - catalog_net
 
   basketdb:
     container_name: basketdb
+    hostname: basketdb
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -25,12 +27,13 @@ services:
       - postgres_basket:/var/lib/postgresql/data
     ports:
       - 5433:5432
-    networks:
-      - postgres
     restart: always
+    networks:
+      - basket_net
 
   pgadmin:
     container_name: pgadmin
+    hostname: pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@riv.as}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-pgadmin}
@@ -38,17 +41,18 @@ services:
     volumes:
       - pgadmin:/var/lib/pgadmin
     ports:
-      - "${PGADMIN_PORT:-6060}:80"
-    networks:
-      - postgres
+      - "${PGADMIN_PORT:-7060}:80"
     restart: unless-stopped
+    networks:
+      - catalog_net
+      - basket_net
 
   catalog.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
-      - ConnectionStrings__Database=Server=localhost;Port=5432;Database=CatalogDb;User Id=postgres;Password=postgres;Include Error Detail=true
+      - ConnectionStrings__Database=Server=catalogdb;Port=5432;Database=CatalogDb;User Id=postgres;Password=postgres;Include Error Detail=true
     depends_on:
       - catalogdb
     ports:
@@ -57,3 +61,5 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - catalog_net

@@ -23,5 +23,7 @@ volumes:
 
 
 networks:
-  postgres:
+  catalog_net:
+    driver: bridge
+  basket_net:
     driver: bridge
