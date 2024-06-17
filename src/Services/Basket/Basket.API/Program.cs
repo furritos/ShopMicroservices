@@ -1,8 +1,10 @@
 using Basket.API.Basket.DeleteBasket;
 using Basket.API.Basket.GetBasket;
+using Basket.API.Basket.StoreBasket;
 using Basket.API.Data;
 using Basket.API.Models;
 using BuildingBlocks.Behaviors;
+using BuildingBlocks.Exceptions.Handler;
 using Carter;
 using FluentValidation;
 using Marten;
@@ -18,6 +20,7 @@ builder.Services.AddCarter(null, config =>
 {
     config.WithModule<GetBasketEndpoint>();
     config.WithModule<DeleteBasketEndpoint>();
+    config.WithModule<StoreBasketEndpoint>();
 });
 
 /*
@@ -51,11 +54,14 @@ builder.Services.AddMarten(opts =>
  * IBasketRepositry - Repository Patter Service
  */
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 // --------------------------------------------------------------
 
 var app = builder.Build();
 
-// Configure HTTP request pipeline
+// Configure the HTTP request pipeline here
+app.MapCarter();
+app.UseExceptionHandler(options => { });
 
 app.Run();
