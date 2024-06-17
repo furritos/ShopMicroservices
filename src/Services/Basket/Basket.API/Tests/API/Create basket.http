@@ -1,0 +1,31 @@
+POST https://localhost:5051/basket HTTP/1.1
+content-type: application/json
+
+{
+  "Cart": {
+    "UserName": "carlos",
+    "Items": [
+      {
+        "Quantity": 2,
+        "Color": "Red",
+        "Price": 500,
+        "ProductId": "11f28cf9-0dc4-4380-af47-fbd21e68acd6",
+        "ProductName": "iPhone 15 Pro"
+      },
+      {
+        "Quantity": 4,
+        "Color": "Pink",
+        "Price": 1500,
+        "ProductId": "11f28cf9-0dc4-4380-af47-fbd21e68acd7",
+        "ProductName": "iPhone Deez Nuts"
+      },
+      {
+        "Quantity": 12,
+        "Color": "Slime",
+        "Price": 2500,
+        "ProductId": "11f28cf9-0dc4-4380-af47-fbd21e68acd8",
+        "ProductName": "iPhone 18 Ooga Booga"
+      }
+    ]
+  }
+}
