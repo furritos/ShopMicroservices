@@ -22,7 +22,7 @@ namespace Basket.API.Basket.StoreBasket
     {
         public async Task<StoreBasketResult> Handle(StoreBasketCommand command, CancellationToken cancellationToken)
         {
-            ShoppingCart cart = command.Cart;
+            ShoppingCart Cart = command.Cart;
 
             // TODO: Store basked in database
             // TODO: Update cache
