@@ -2,10 +2,11 @@
 using BuildingBlocks.CQRS;
 using static BuildingBlocks.Behaviors.ValidationBehaviorConstants;
 using FluentValidation;
+using Basket.API.Data;
 
 namespace Basket.API.Basket.StoreBasket
 {
-    public record StoreBasketCommand(ShoppingCart Cart):ICommand<StoreBasketResult>;
+    public record StoreBasketCommand(ShoppingCart Cart) : ICommand<StoreBasketResult>;
     public record StoreBasketResult(string UserName);
 
     public class StoreBasketCommandValidator : AbstractValidator<StoreBasketCommand>
@@ -17,7 +18,7 @@ namespace Basket.API.Basket.StoreBasket
         }
     }
 
-    internal class StoreBasketCommandHandler : ICommandHandler<StoreBasketCommand, StoreBasketResult>
+    internal class StoreBasketCommandHandler(IBasketRepository repository) : ICommandHandler<StoreBasketCommand, StoreBasketResult>
     {
         public async Task<StoreBasketResult> Handle(StoreBasketCommand command, CancellationToken cancellationToken)
         {
@@ -25,8 +26,8 @@ namespace Basket.API.Basket.StoreBasket
 
             // TODO: Store basked in database
             // TODO: Update cache
-
-            return new StoreBasketResult("carlos");
+            await repository.StoreBasket(command.Cart, cancellationToken);
+            return new StoreBasketResult(command.Cart.UserName);
         }
     }
 }
