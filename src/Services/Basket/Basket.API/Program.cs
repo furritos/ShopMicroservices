@@ -1,5 +1,6 @@
 using Basket.API.Basket.DeleteBasket;
 using Basket.API.Basket.GetBasket;
+using Basket.API.Data;
 using Basket.API.Models;
 using BuildingBlocks.Behaviors;
 using Carter;
@@ -43,8 +44,13 @@ builder.Services.AddMarten(opts =>
      * https://martendb.io/documents/identity.html
      */
     opts.Schema.For<ShoppingCart>().Identity(x => x.UserName);
-    
+
 }).UseLightweightSessions();
+
+/*
+ * IBasketRepositry - Repository Patter Service
+ */
+builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 
 // --------------------------------------------------------------
 

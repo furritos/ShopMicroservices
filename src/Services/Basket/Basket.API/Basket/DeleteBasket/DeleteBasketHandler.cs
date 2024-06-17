@@ -1,17 +1,15 @@
-﻿using Basket.API.Models;
+﻿using Basket.API.Data;
 using BuildingBlocks.CQRS;
-using Marten;
 
 namespace Basket.API.Basket.DeleteBasket
 {
     public record DeleteBasketCommand(string UserName) : ICommand<DeleteBasketResult>;
     public record DeleteBasketResult(bool IsSuccess);
-    internal class DeleteBasketCommandHandler(IDocumentSession session) : ICommandHandler<DeleteBasketCommand, DeleteBasketResult>
+    internal class DeleteBasketCommandHandler(IBasketRepository repository) : ICommandHandler<DeleteBasketCommand, DeleteBasketResult>
     {
         public async Task<DeleteBasketResult> Handle(DeleteBasketCommand command, CancellationToken cancellationToken)
         {
-            session.Delete<ShoppingCart>(command.UserName);
-            await session.SaveChangesAsync(cancellationToken);
+            await repository.DeleteBasket(command.UserName, cancellationToken);
             return new DeleteBasketResult(true);
         }
     }
