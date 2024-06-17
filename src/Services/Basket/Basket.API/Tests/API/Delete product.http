@@ -1,2 +1,0 @@
-DELETE https://localhost:5050/products/018ff947-309a-4098-b4c7-555fb3ab7324 HTTP/1.1
-Content-Type: application/json
