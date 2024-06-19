@@ -51,9 +51,22 @@ builder.Services.AddMarten(opts =>
 }).UseLightweightSessions();
 
 /*
- * IBasketRepositry - Repository Patter Service
+ * IBasketRepositry - Repository Pattern Service
  */
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+
+/*
+ * IBasketRepositry - Repository Pattern Service for caching
+ * 
+ * PROBLEM! - I'm writing and committing this as a way to show what the 
+ * problem would be here.  With .NET, DI will take the LAST scope.  That
+ * means that we would lose on the BasketRepository DI in favor of the 
+ * CachedBasketRepository.  This would not work for our case.
+ * 
+ */
+builder.Services.AddScoped<IBasketRepository, CachedBasketRepository>();
+
+
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 // --------------------------------------------------------------
