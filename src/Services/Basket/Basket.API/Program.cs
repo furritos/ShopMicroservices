@@ -8,6 +8,7 @@ using BuildingBlocks.Exceptions.Handler;
 using Carter;
 using FluentValidation;
 using Marten;
+using Microsoft.Extensions.Caching.Distributed;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,15 +57,15 @@ builder.Services.AddMarten(opts =>
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 
 /*
- * IBasketRepositry - Repository Pattern Service for caching
+ * IBasketRepositry - Manual Injection of Repository Service for caching
  * 
- * PROBLEM! - I'm writing and committing this as a way to show what the 
- * problem would be here.  With .NET, DI will take the LAST scope.  That
- * means that we would lose on the BasketRepository DI in favor of the 
- * CachedBasketRepository.  This would not work for our case.
- * 
+ * While this would work, it's cumbersome.  There are better, cleaner ways of doing this
  */
-builder.Services.AddScoped<IBasketRepository, CachedBasketRepository>();
+builder.Services.AddScoped<IBasketRepository>(provider =>
+{
+    var basketRepository = provider.GetService<BasketRepository>();
+    return new CachedBasketRepository(basketRepository, provider.GetRequiredService<IDistributedCache>());
+});
 
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
