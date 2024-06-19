@@ -57,17 +57,13 @@ builder.Services.AddMarten(opts =>
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 
 /*
- * IBasketRepositry - Manual Injection of Repository Service for caching
- * 
- * While this would work, it's cumbersome.  There are better, cleaner ways of doing this
+ * Decorating using Scrutor library
  */
-builder.Services.AddScoped<IBasketRepository>(provider =>
-{
-    var basketRepository = provider.GetService<BasketRepository>();
-    return new CachedBasketRepository(basketRepository, provider.GetRequiredService<IDistributedCache>());
-});
+builder.Services.Decorate<IBasketRepository, CachedBasketRepository>();
 
-
+/*
+ * Add custom exception handler
+ */
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 // --------------------------------------------------------------
