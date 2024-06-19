@@ -7,7 +7,9 @@ using BuildingBlocks.Behaviors;
 using BuildingBlocks.Exceptions.Handler;
 using Carter;
 using FluentValidation;
+using HealthChecks.UI.Client;
 using Marten;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Caching.Distributed;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -74,6 +76,13 @@ builder.Services.AddStackExchangeRedisCache(options =>
  */
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
+/*
+ * Registering health checks
+ */
+builder.Services.AddHealthChecks()
+    .AddNpgSql(builder.Configuration.GetConnectionString("Database")!)
+    .AddRedis(builder.Configuration.GetConnectionString("Redis")!);
+
 // --------------------------------------------------------------
 
 var app = builder.Build();
@@ -81,5 +90,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline here
 app.MapCarter();
 app.UseExceptionHandler(options => { });
+app.UseHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
 app.Run();
