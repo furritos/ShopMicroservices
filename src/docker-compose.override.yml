@@ -47,6 +47,15 @@ services:
       - catalog_net
       - basket_net
 
+  distributedcache:
+    container_name: distributedcache
+    hostname: distributedcache
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - basket_net
+
   catalog.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
