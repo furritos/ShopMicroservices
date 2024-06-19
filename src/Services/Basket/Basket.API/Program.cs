@@ -62,6 +62,14 @@ builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 builder.Services.Decorate<IBasketRepository, CachedBasketRepository>();
 
 /*
+ * Stack Exchange Redis Cache Connection Details
+ */
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+});
+
+/*
  * Add custom exception handler
  */
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
