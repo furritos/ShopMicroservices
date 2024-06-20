@@ -19,10 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Basket", "{7998A4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basket.API", "Services\Basket\Basket.API\Basket.API.csproj", "{3E606427-E904-419D-9325-EC00E1F73202}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eshop-microservices.AppHost", "eshop-microservices.AppHost\eshop-microservices.AppHost.csproj", "{AF0B4E33-2DD5-4D07-90D5-F43B41343A71}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eshop-microservices.ServiceDefaults", "eshop-microservices.ServiceDefaults\eshop-microservices.ServiceDefaults.csproj", "{1AB26928-4B0F-4FAB-98F0-800B80F44939}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Discount", "Discount", "{C238F61D-9307-4207-9AF1-E84BE08481F5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discount.GRPC", "Services\Discount\Discount.GRPC\Discount.GRPC.csproj", "{B5E23741-5ECD-49A6-BD3A-E09C5D0709E7}"
@@ -49,14 +45,6 @@ Global
 		{3E606427-E904-419D-9325-EC00E1F73202}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E606427-E904-419D-9325-EC00E1F73202}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E606427-E904-419D-9325-EC00E1F73202}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AF0B4E33-2DD5-4D07-90D5-F43B41343A71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AF0B4E33-2DD5-4D07-90D5-F43B41343A71}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AF0B4E33-2DD5-4D07-90D5-F43B41343A71}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AF0B4E33-2DD5-4D07-90D5-F43B41343A71}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1AB26928-4B0F-4FAB-98F0-800B80F44939}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1AB26928-4B0F-4FAB-98F0-800B80F44939}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1AB26928-4B0F-4FAB-98F0-800B80F44939}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1AB26928-4B0F-4FAB-98F0-800B80F44939}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B5E23741-5ECD-49A6-BD3A-E09C5D0709E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B5E23741-5ECD-49A6-BD3A-E09C5D0709E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5E23741-5ECD-49A6-BD3A-E09C5D0709E7}.Release|Any CPU.ActiveCfg = Release|Any CPU

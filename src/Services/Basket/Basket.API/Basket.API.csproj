@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
-    <ProjectReference Include="..\..\..\eshop-microservices.ServiceDefaults\eshop-microservices.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>
