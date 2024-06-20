@@ -94,8 +94,6 @@ services:
       - basket_net
 
   discount.grpc:
-    container_name: discount.grpc
-    hostname: discount.grpc
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
