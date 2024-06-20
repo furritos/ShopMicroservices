@@ -6,6 +6,7 @@ using Basket.API.Models;
 using BuildingBlocks.Behaviors;
 using BuildingBlocks.Exceptions.Handler;
 using Carter;
+using Discount.GRPC;
 using FluentValidation;
 using HealthChecks.UI.Client;
 using Marten;
@@ -15,6 +16,8 @@ using Microsoft.Extensions.Caching.Distributed;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to container
+
+// ###### ==== APPLICATION SERVICES ==== #####
 
 /*
  * Carter - API Endpoints
@@ -37,6 +40,10 @@ builder.Services.AddMediatR(config =>
     config.AddOpenBehavior(typeof(LoggingBehavior<,>));
 });
 builder.Services.AddValidatorsFromAssembly(assembly);
+// ###### ==== APPLICATION SERVICES ==== #####
+
+
+// ###### ==== DATA SERVICES ==== #####
 
 /*
  * Marten - Database repository; JSON documents in PostgreSQL
@@ -70,7 +77,20 @@ builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration.GetConnectionString("Redis");
 });
+// ###### ==== DATA SERVICES ==== #####
 
+
+
+// ###### ==== GRPC SERVICES ==== #####
+builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(options =>
+{
+    options.Address = new Uri(builder.Configuration["GRPCSettings:DiscountURL"]!);
+});
+// ###### ==== GRPC SERVICES ==== #####
+
+
+
+// ###### ==== CROSS-CUTTING SERVICES ==== #####
 /*
  * Add custom exception handler
  */
@@ -84,6 +104,7 @@ builder.Services.AddHealthChecks()
     .AddRedis(builder.Configuration.GetConnectionString("Redis")!);
 
 // --------------------------------------------------------------
+// ###### ==== CROSS-CUTTING SERVICES ==== #####
 
 var app = builder.Build();
 
