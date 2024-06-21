@@ -1,16 +1,16 @@
-POST https://localhost:5051/basket HTTP/1.1
+POST https://localhost:6061/basket HTTP/1.1
 content-type: application/json
 
 {
   "Cart": {
-    "UserName": "carlos",
+    "UserName": "carlos2",
     "Items": [
       {
         "Quantity": 2,
         "Color": "Red",
         "Price": 500,
         "ProductId": "11f28cf9-0dc4-4380-af47-fbd21e68acd6",
-        "ProductName": "iPhone 15 Pro"
+        "ProductName": "IPhone X"
       },
       {
         "Quantity": 4,
