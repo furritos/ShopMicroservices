@@ -9,7 +9,7 @@ package discount;
 // The discount service definition.
 service DiscountProtoService {
 	// Discount CRUD Operations
-	rpc GetDiscount (GetDiscountRequest) returns (CouponModel){
+	rpc GetDiscount (GetDiscountRequest) returns (CouponModel) {
 		option(google.api.http) = {
 			get: "/v1/discount/{productName}"
 		};
