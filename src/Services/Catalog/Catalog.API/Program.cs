@@ -18,6 +18,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add dependency injection services here
 
 /*
+ * Swagger - API UI Frontend
+ */
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+/*
  * Carter - API Endpoints
  */
 builder.Services.AddCarter(null, config =>
@@ -65,6 +71,13 @@ builder.Services.AddHealthChecks().AddNpgSql(dbConnection);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline here
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
 app.MapCarter();
 
 app.UseExceptionHandler(opts =>
