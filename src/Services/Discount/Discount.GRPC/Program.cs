@@ -5,7 +5,14 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddGrpc();
+builder.Services.AddGrpc().AddJsonTranscoding();
+
+/*
+ * Swagger for GRPC
+ */
+builder.Services.AddGrpcSwagger();
+builder.Services.AddSwaggerGen();
+
 
 /*
  * Inject SQLite Services
@@ -19,12 +26,19 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 
 /*
+ * Enable Swagger UI
+ */
+
+if (app.Environment.IsDevelopment()) { 
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+/*
  * Use Auto-Migration extension created in Data folder
  */
 app.UseMigration();
 
 app.MapGrpcService<DiscountService>();
-
-app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
 app.Run();
