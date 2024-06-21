@@ -11,13 +11,18 @@ using FluentValidation;
 using HealthChecks.UI.Client;
 using Marten;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Caching.Distributed;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to container
 
 // ###### ==== APPLICATION SERVICES ==== #####
+
+/*
+ * Swagger - API UI Frontend
+ */
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 /*
  * Carter - API Endpoints
@@ -115,6 +120,16 @@ builder.Services.AddHealthChecks()
 // ###### ==== CROSS-CUTTING SERVICES ==== #####
 
 var app = builder.Build();
+
+/*
+ * Enable Swagger UI
+ */
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 // Configure the HTTP request pipeline here
 app.MapCarter();
