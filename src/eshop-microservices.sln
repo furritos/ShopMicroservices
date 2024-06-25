@@ -31,7 +31,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Domain", "Services
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Application", "Services\Ordering\Ordering.Application\Ordering.Application.csproj", "{68C5D7AB-35FF-4B6D-A7D0-E910208DD105}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Order.Infrastructure", "Services\Ordering\Order.Infrastructure\Order.Infrastructure.csproj", "{B0095D22-4CF0-4F7A-A6DF-0911A79A0196}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Infrastructure", "Services\Ordering\Order.Infrastructure\Ordering.Infrastructure.csproj", "{B0095D22-4CF0-4F7A-A6DF-0911A79A0196}"
 	ProjectSection(ProjectDependencies) = postProject
 		{68C5D7AB-35FF-4B6D-A7D0-E910208DD105} = {68C5D7AB-35FF-4B6D-A7D0-E910208DD105}
 	EndProjectSection
