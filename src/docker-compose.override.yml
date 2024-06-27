@@ -56,6 +56,17 @@ services:
     networks:
       - basket_net
 
+  orderdb:
+    container_name: orderdb
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=LetMeIn123456
+    restart: always
+    ports:
+      - "1433:1433"
+    networks:
+      - order_net
+
   catalog.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
