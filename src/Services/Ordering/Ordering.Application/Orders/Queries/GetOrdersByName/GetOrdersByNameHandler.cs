@@ -1,10 +1,7 @@
 ﻿using BuildingBlocks.CQRS;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Ordering.Application.Data;
-using Ordering.Application.DTO;
 using Ordering.Application.Extensions;
-using Ordering.Domain.Models;
 
 namespace Ordering.Application.Orders.Queries.GetOrdersByName;
 
